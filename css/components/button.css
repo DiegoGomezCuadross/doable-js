@@ -6,7 +6,6 @@
   line-height: 1.25em;
   font-weight: 500;
   letter-spacing: 0.1em;
-  text-transform: uppercase;
   padding: 0.5em 1em;
   cursor: pointer;
   display: flex;
@@ -23,7 +22,7 @@
 
 /* Button Primary */
 .button--primary {
-  background-color: var(--primary-300);
+  background-color: var(--pick-500);
   color: white;
 }
 
