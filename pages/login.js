@@ -2,8 +2,8 @@ import DOMHandler from "../dom-handler.js";
 // import HomePage from "./home-page.js";
 import { login } from "../helpers/sessions.js";
 import { input } from "../components/input.js";
-import SignupPage from "./signup.js";
-import HomePage from "./homepage.js";
+import SignupPage from "../pages/signup.js";
+import HomePage from "../pages/homePage.js";
 import STORE from "../store.js";
 
 function render() {
