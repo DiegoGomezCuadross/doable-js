@@ -4,7 +4,7 @@ export async function listTasks() {
   return await apiFetch("tasks");
 }
 
-export async function createTasks(
+export async function createTask(
   newTask = {
     title,
     due_date,
@@ -13,7 +13,7 @@ export async function createTasks(
   return await apiFetch("tasks", { body: newTask });
 }
 
-export async function deleteTasks(id) {
+export async function deleteTask(id) {
   return await apiFetch(`tasks/${id}`, { method: "DELETE" });
 }
 
