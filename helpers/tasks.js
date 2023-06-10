@@ -1,10 +1,10 @@
-import apiFetch from "./api-fetch.js";
+import apiFetch from "../services/api-fetch.js";
 
 export async function listTasks() {
   return await apiFetch("tasks");
 }
 
-export async function createTask(
+export async function createTasks(
   newTask = {
     title,
     due_date,
@@ -13,7 +13,7 @@ export async function createTask(
   return await apiFetch("tasks", { body: newTask });
 }
 
-export async function deleteTask(id) {
+export async function deleteTasks(id) {
   return await apiFetch(`tasks/${id}`, { method: "DELETE" });
 }
 
