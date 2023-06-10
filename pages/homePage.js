@@ -5,9 +5,9 @@ import { input } from "../components/input.js";
 import LoginPage from "./login.js";
 import { logout } from "../helpers/sessions.js";
 import STORE from "../store.js";
+import { createTasks } from "../helpers/tasks.js";
 
 function render() {
-  console.log(STORE.task);
   return `
     <div id="container">
         <section class="container-doable" style="background-color: silver;">
@@ -33,50 +33,53 @@ function render() {
                 <label class="typo"><input type="checkbox" id="cbox2" value="important">Only important</label>
             </div>
             <div class="container-tasks">
-                ${STORE.task.map(
-                  (ele) =>
-                    `<div class="task-container">
+                ${STORE.task
+                  .map((ele) => {
+                    const date = new Date(ele.created_at);
+                    const formattedDate = date.toLocaleDateString("en-US", {
+                      weekday: "long",
+                      month: "long",
+                      day: "numeric",
+                    });
+                    return `<div class="task-container">
                     <input type="checkbox" id="task1">
                     <label for="task1">
                         <span class="task-text">
                             ${ele.title}
                             <img src="/images/important-on.svg" alt="icon-important" class="icon">
                         </span>
-                        <span class="task-date">${ele.created_at}</span>
+                        <span class="task-date">${formattedDate}</span>
                     </label>
-                </div>`
-                )} 
+                </div>`;
+                  })
+                  .join("")} 
             </div>
-            <div class="container-new-task">
-                <input type="text" id="new-task" placeholder="do the dishes..." class="input-new-task">
-                <input type="date" id="new-task" placeholder="do the dishes..." class="input-new-task">
-                <button class="button button--primary width-full text-button">Add Task</button>
-            </div>
+            <form class="container-new-task js-task-form">
+            ${input({
+              label: "",
+              id: "title",
+              name: "title",
+              placeholder: "do the dishes",
+              type: "text",
+              required: true,
+              class: "input-new-task",
+              value: "",
+            })}
+                ${input({
+                  label: "",
+                  id: "due_date",
+                  name: "due_date",
+                  placeholder: "",
+                  type: "date",
+                  required: false,
+                  class: "input-new-task",
+                  value: "",
+                })}
+                <button class="button button--primary width-full text-button" id="addTask">Add Task</button>
+            </form>
         </section>
     </div>`;
 }
-
-// function listenSubmitForm() {
-//   const form = document.querySelector(".js-signup-form");
-
-//   form.addEventListener("submit", async (e) => {
-//     try {
-//       e.preventDefault();
-
-//       const { email, password } = e.target.elements;
-
-//       const credentials = {
-//         email: email.value,
-//         password: password.value,
-//       };
-
-//       await createUser(credentials);
-//     } catch (error) {
-//       this.state.loginError = error.message;
-//       DOMHandler.reload();
-//     }
-//   });
-// }
 
 function logoutSession() {
   const signup = document.getElementById("logout-session");
@@ -87,14 +90,37 @@ function logoutSession() {
   });
 }
 
+function addNewTask() {
+  const form = document.querySelector(".js-task-form");
+
+  form.addEventListener("submit", async (e) => {
+    try {
+      e.preventDefault();
+
+      const { title, due_date } = e.target.elements;
+
+      const credentials = {
+        title: title.value,
+        due_date: due_date.value,
+      };
+
+      const addTaskFinal = await createTasks(credentials);
+      STORE.addTask(addTaskFinal);
+      DOMHandler.load(HomePage);
+    } catch (error) {
+      console.log(error.message);
+      DOMHandler.reload();
+    }
+  });
+}
+
 const HomePage = {
   toString() {
     return render.call(this);
   },
   addListeners() {
     logoutSession.call(this);
-    // listenSubmitForm.call(this);
-    // changeViewToLogin.call(this);
+    addNewTask.call(this);
   },
 };
 
