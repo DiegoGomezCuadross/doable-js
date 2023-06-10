@@ -29,3 +29,9 @@
   max-width: 1280px;
   margin: auto;
 }
+
+#container {
+  max-width: 450px;
+  margin: auto;
+  border-radius: 1rem;
+}

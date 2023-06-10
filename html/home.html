@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Doable</title>
+    <link rel="stylesheet" href="/css/style.css">
+    </link>
+</head>
+
+<body>
+    <div id="container">
+        <section class="container-doable" style="background-color: silver;">
+            <header class="container-header">
+                <div>
+                    <img src="/images/{ doable }.svg" alt="Doable logo">
+                </div>
+            </header>
+            <div class="container-search-1">
+                <label for="opcions" class="margin-left-18 typo">Sort</label>
+                <select class="select-options">
+                    <option value="opcion1" selected>Alphabetical (a-z)</option>
+                    <option value="opcion2">Due date</option>
+                    <option value="opcion3">Importance</option>
+                </select><br>
+            </div>
+            <div class="container-search-2">
+                <label for="opcions" class="margin-left-18 typo">Show</label>
+                <label class="typo"><input type="checkbox" id="cbox1" value="pending">Only pending</label>
+                <label class="typo"><input type="checkbox" id="cbox2" value="important">Only important</label>
+            </div>
+            <div class="container-tasks">
+                <div class="task-container">
+                    <input type="checkbox" id="task1">
+                    <label for="task1">
+                        <span class="task-text">
+                            Task 1
+                            <img src="/images/important-on.svg" alt="icon-important" class="icon">
+                        </span>
+                        <span class="task-date">Monday, June 08</span>
+                    </label>
+                </div>
+
+                <div class="task-container">
+                    <input type="checkbox" id="task1">
+                    <label for="task1">
+                         <span class="task-text">
+                            Task 2
+                            <img src="/images/important-on.svg" alt="icon-important" class="icon">
+                        </span>
+                        <span class="task-date">Tuesday, June 08</span>
+                    </label>
+                </div>
+
+                <div class="task-container">
+                    <input type="checkbox" id="task1">
+                    <label for="task1">
+                        <span class="task-text">
+                            Task 3
+                            <img src="/images/important-on.svg" alt="icon-important" class="icon">
+                        </span>
+                        <span class="task-date">Wednesday, June 08</span>
+                    </label>
+                </div>
+
+                <div class="task-container">
+                    <input type="checkbox" id="task1">
+                    <label for="task1">
+                        <span class="task-text">
+                            Task 4
+                            <img src="/images/important-on.svg" alt="icon-important" class="icon">
+                        </span>
+                        <span class="task-date">Thursday, June 08</span>
+                    </label>
+                </div>
+
+                <div class="task-container">
+                    <input type="checkbox" id="task1">
+                    <label for="task1">
+                        <span class="task-text">
+                            Task 4
+                            <img src="/images/important-on.svg" alt="icon-important" class="icon">
+                        </span>
+                        <span class="task-date">Thursday, June 08</span>
+                    </label>
+                </div>
+
+                <div class="task-container">
+                    <input type="checkbox" id="task1">
+                    <label for="task1">
+                        <span class="task-text">
+                            Task 4
+                            <img src="/images/important-on.svg" alt="icon-important" class="icon">
+                        </span>
+                        <span class="task-date">Thursday, June 08</span>
+                    </label>
+                </div>
+
+                <div class="task-container">
+                    <input type="checkbox" id="task1">
+                    <label for="task1">
+                        <span class="task-text">
+                            Task 4
+                            <img src="/images/important-on.svg" alt="icon-important" class="icon">
+                        </span>
+                        <span class="task-date">Thursday, June 08</span>
+                    </label>
+                </div>
+            </div>
+            <div class="container-new-task">
+                <input type="text" id="new-task" placeholder="do the dishes..." class="input-new-task">
+                <input type="date" id="new-task" placeholder="do the dishes..." class="input-new-task">
+                <button class="button button--primary width-full text-button">Add Task</button>
+            </div>
+        </section>
+    </div>
+</body>
+
+</html>
