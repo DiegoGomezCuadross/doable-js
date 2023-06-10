@@ -31,7 +31,18 @@
 }
 
 #container {
-  max-width: 450px;
+  max-width: 375px;
   margin: auto;
   border-radius: 1rem;
+}
+
+.container-icons-header {
+  display: flex;
+}
+
+.logout {
+  position: absolute;
+  right: 0;
+  margin-right: 16px;
+  margin-top: 3px;
 }

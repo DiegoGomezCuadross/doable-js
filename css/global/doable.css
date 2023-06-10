@@ -113,7 +113,6 @@
   margin-left: 16px;
   margin-right: 16px;
   width: 315px;
-  background-color: honeydew;
   margin-bottom: 10px;
   overflow-y: auto;
   border-radius: 5px;
@@ -186,10 +185,21 @@
 }
 
 .icon {
-  margin-left: 212px;
+  margin-left: 190px;
 }
 
 .task-text {
   display: flex;
   align-items: center;
+}
+
+.container-icons-header {
+  display: flex;
+}
+
+.logout {
+  position: absolute;
+  right: 0;
+  margin-right: 16px;
+  margin-top: 3px;
 }
