@@ -117,18 +117,9 @@
   overflow-y: auto;
   border-radius: 5px;
 }
-
-.container-task {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  gap: 8px;
-  width: 344px;
-  height: 44px;
-  padding: 0px;
-}
-
 .task-container {
+  display: flex;
+  align-items: center;
   font-weight: 600;
   font-size: 16px;
   line-height: 24px;
@@ -136,9 +127,8 @@
   padding: 0px;
   gap: 8px;
   width: 315px;
-  height: 44px;
+  min-height: 44px;
 }
-
 .task-date {
   font-weight: 400;
   font-size: 14px;
@@ -178,19 +168,16 @@
 .container-new-task button {
   width: 100%;
 }
-
-.task-container {
-  display: flex;
-  align-items: center;
-}
-
-.icon {
-  margin-left: 190px;
-}
-
 .task-text {
   display: flex;
   align-items: center;
+  max-width: 270px;
+}
+
+.container-p {
+  min-width: 250px;
+  max-width: 250px;
+  min-height: 15px;
 }
 
 .container-icons-header {

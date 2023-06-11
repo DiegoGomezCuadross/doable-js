@@ -35,20 +35,29 @@ function render() {
             <div class="container-tasks">
                 ${STORE.task
                   .map((ele) => {
-                    const date = new Date(ele.created_at);
-                    const formattedDate = date.toLocaleDateString("en-US", {
-                      weekday: "long",
-                      month: "long",
-                      day: "numeric",
-                    });
+                    const datetask = ele.due_date;
+                    this.formattedDate = "";
+
+                    if (datetask !== null) {
+                      const date = new Date(datetask);
+                      this.formattedDate = date.toLocaleDateString("en-US", {
+                        weekday: "long",
+                        month: "long",
+                        day: "numeric",
+                      });
+                    }
                     return `<div class="task-container">
                     <input type="checkbox" id="task1">
                     <label for="task1">
                         <span class="task-text">
-                            ${ele.title}
-                            <img src="/images/important-on.svg" alt="icon-important" class="icon">
+                           <p class="container-p">${ele.title}</p> 
+                            <img src="/images/important-on.svg" alt="icon-important">
                         </span>
-                        <span class="task-date">${formattedDate}</span>
+                        ${
+                          this.formattedDate
+                            ? `<span class="task-date">${this.formattedDate}</span>`
+                            : ""
+                        }
                     </label>
                 </div>`;
                   })
@@ -73,7 +82,7 @@ function render() {
                   type: "date",
                   required: false,
                   class: "input-new-task",
-                  value: "",
+                  value: null,
                 })}
                 <button class="button button--primary width-full text-button" id="addTask">Add Task</button>
             </form>
