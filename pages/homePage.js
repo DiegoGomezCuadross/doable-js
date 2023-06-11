@@ -5,9 +5,10 @@ import { input } from "../components/input.js";
 import LoginPage from "./login.js";
 import { logout } from "../helpers/sessions.js";
 import STORE from "../store.js";
-import { createTasks } from "../helpers/tasks.js";
+import { createTasks, updateTask } from "../helpers/tasks.js";
 import { sortedByDueDate } from "../helpers/sortedByDueDate.js";
 import { sortedByAbc } from "../helpers/sortedByAbc.js";
+import { sortedByImportance } from "../helpers/sortedByImportance.js";
 
 function render() {
   return `
@@ -60,7 +61,11 @@ function render() {
                     <label for="task1">
                         <span class="task-text">
                            <p class="container-p">${ele.title}</p> 
-                            <img src="/images/important-off.svg" alt="icon-important">
+                           ${
+                             !ele.important
+                               ? `<img src="/images/important-off.svg" alt="icon-off" class="icon-important" data-id="${ele.id}">`
+                               : `<img src="/images/important-on.svg" alt="icon-on" class="icon-important" data-id="${ele.id}">`
+                           }
                         </span>
                         ${
                           this.formattedDate
@@ -141,6 +146,22 @@ function orders() {
     if (select.value === "option2") {
       sortedByDueDate();
     }
+    if (select.value === "option3") {
+      sortedByImportance();
+    }
+  });
+}
+
+function changeStateImportant() {
+  const container = document.querySelector(".container-tasks");
+
+  container.addEventListener("click", async ({ target }) => {
+    if (target.classList.contains("icon-important")) {
+      const id = target.getAttribute("data-id");
+      const alt = target.getAttribute("alt");
+      let state = alt === "icon-off" ? false : true;
+      await updateTask(id, { state });
+    }
   });
 }
 
@@ -152,6 +173,7 @@ const HomePage = {
     logoutSession.call(this);
     addNewTask.call(this);
     orders.call(this);
+    changeStateImportant.call(this);
   },
 };
 

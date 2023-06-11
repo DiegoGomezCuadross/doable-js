@@ -20,6 +20,10 @@ export async function deleteTasks(id) {
 export async function showTask(id) {
   return await apiFetch(`tasks/${id}`);
 }
+
+export async function updateTask(id, updateTask) {
+  return await apiFetch(`tasks/${id}`, { method: "PATCH", body: updateTask });
+}
 // export async function updateContacts{id}{
 
 // }

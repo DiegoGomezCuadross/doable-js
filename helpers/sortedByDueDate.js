@@ -38,7 +38,11 @@ export function sortedByDueDate() {
                     <label for="task1">
                         <span class="task-text">
                            <p class="container-p">${ele.title}</p> 
-                            <img src="/images/important-off.svg" alt="icon-important">
+                           ${
+                             !ele.important
+                               ? '<img src="/images/important-off.svg" alt="icon-important">'
+                               : '<img src="/images/important-on.svg" alt="icon-important">'
+                           }
                         </span>
                         ${
                           formattedDate
