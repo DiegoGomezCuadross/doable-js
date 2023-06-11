@@ -68,8 +68,10 @@ function listenSubmitForm() {
       await login(credentials);
       await STORE.fetchListTasks();
       DOMHandler.load(HomePage);
+      console.log(STORE);
     } catch (error) {
       this.state.loginError = error.message;
+      console.log(error);
       DOMHandler.reload();
     }
   });

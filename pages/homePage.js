@@ -6,6 +6,8 @@ import LoginPage from "./login.js";
 import { logout } from "../helpers/sessions.js";
 import STORE from "../store.js";
 import { createTasks } from "../helpers/tasks.js";
+import { sortedByDueDate } from "../helpers/sortedByDueDate.js";
+import { sortedByAbc } from "../helpers/sortedByAbc.js";
 
 function render() {
   return `
@@ -22,9 +24,9 @@ function render() {
             <div class="container-search-1">
                 <label for="opcions" class="margin-left-18 typo">Sort</label>
                 <select class="select-options">
-                    <option value="opcion1" selected>Alphabetical (a-z)</option>
-                    <option value="opcion2">Due date</option>
-                    <option value="opcion3">Importance</option>
+                    <option value="option1" selected>Alphabetical (a-z)</option>
+                    <option value="option2">Due date</option>
+                    <option value="option3">Importance</option>
                 </select><br>
             </div>
             <div class="container-search-2">
@@ -39,19 +41,26 @@ function render() {
                     this.formattedDate = "";
 
                     if (datetask !== null) {
+                      console.log(new Date(datetask));
                       const date = new Date(datetask);
-                      this.formattedDate = date.toLocaleDateString("en-US", {
-                        weekday: "long",
-                        month: "long",
-                        day: "numeric",
-                      });
+                      const localDate = new Date(
+                        date.getTime() + date.getTimezoneOffset() * 60000
+                      );
+                      this.formattedDate = localDate.toLocaleDateString(
+                        "en-US",
+                        {
+                          weekday: "long",
+                          month: "long",
+                          day: "numeric",
+                        }
+                      );
                     }
                     return `<div class="task-container">
                     <input type="checkbox" id="task1">
                     <label for="task1">
                         <span class="task-text">
                            <p class="container-p">${ele.title}</p> 
-                            <img src="/images/important-on.svg" alt="icon-important">
+                            <img src="/images/important-off.svg" alt="icon-important">
                         </span>
                         ${
                           this.formattedDate
@@ -123,6 +132,18 @@ function addNewTask() {
   });
 }
 
+function orders() {
+  const select = document.querySelector(".select-options");
+  select.addEventListener("change", () => {
+    if (select.value === "option1") {
+      sortedByAbc();
+    }
+    if (select.value === "option2") {
+      sortedByDueDate();
+    }
+  });
+}
+
 const HomePage = {
   toString() {
     return render.call(this);
@@ -130,6 +151,7 @@ const HomePage = {
   addListeners() {
     logoutSession.call(this);
     addNewTask.call(this);
+    orders.call(this);
   },
 };
 
