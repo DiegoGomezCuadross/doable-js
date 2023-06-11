@@ -1,4 +1,5 @@
 import apiFetch from "../services/api-fetch.js";
+import STORE from "../store.js";
 
 export async function listTasks() {
   return await apiFetch("tasks");
@@ -22,7 +23,8 @@ export async function showTask(id) {
 }
 
 export async function updateTask(id, updateTask) {
-  return await apiFetch(`tasks/${id}`, { method: "PATCH", body: updateTask });
+  await apiFetch(`tasks/${id}`, { method: "PATCH", body: updateTask });
+  STORE.updateTaskFromStore(id, updateTask);
 }
 // export async function updateContacts{id}{
 

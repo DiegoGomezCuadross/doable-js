@@ -5,10 +5,20 @@ async function fetchListTasks() {
   this.task = tasks;
   orderByAbc();
 }
+function updateTaskFromStore(id, updateTask) {
+  const newState = updateTask.important;
+  const newArray = this.task.map((ele) => {
+    if (ele.id == id) {
+      ele.important = newState;
+    }
+  });
+  this.task = newArray;
+}
 const STORE = {
   user: null,
   task: [],
   fetchListTasks,
+  updateTaskFromStore,
   addTask(addTaskFinal) {
     this.task.push(addTaskFinal);
     orderByAbc();

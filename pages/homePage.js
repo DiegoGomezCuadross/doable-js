@@ -160,7 +160,8 @@ function changeStateImportant() {
       const id = target.getAttribute("data-id");
       const alt = target.getAttribute("alt");
       let state = alt === "icon-off" ? false : true;
-      await updateTask(id, { state });
+      await updateTask(id, { important: !state });
+      console.log(STORE.task);
     }
   });
 }
