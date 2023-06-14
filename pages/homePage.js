@@ -1,6 +1,4 @@
 import DOMHandler from "../dom-handler.js";
-// import HomePage from "./home-page.js";
-import { createUser } from "../helpers/sessions.js";
 import { input } from "../components/input.js";
 import LoginPage from "./login.js";
 import { logout } from "../helpers/sessions.js";
@@ -42,7 +40,6 @@ function render() {
                     this.formattedDate = "";
 
                     if (datetask !== null) {
-                      console.log(new Date(datetask));
                       const date = new Date(datetask);
                       const localDate = new Date(
                         date.getTime() + date.getTimezoneOffset() * 60000
@@ -57,7 +54,11 @@ function render() {
                       );
                     }
                     return `<div class="task-container">
-                    <input type="checkbox" id="task1">
+                    ${
+                      !ele.completed
+                        ? `<input type="checkbox" class="completed-pending" name="pending" data-id="${ele.id}">`
+                        : `<input type="checkbox" class="completed-pending" name="pending" checked data-id="${ele.id}">`
+                    }
                     <label for="task1">
                         <span class="task-text">
                            <p class="container-p">${ele.title}</p> 
@@ -152,7 +153,7 @@ function orders() {
   });
 }
 
-function changeStateImportant() {
+export function changeStateImportant() {
   const container = document.querySelector(".container-tasks");
 
   container.addEventListener("click", async ({ target }) => {
@@ -160,12 +161,41 @@ function changeStateImportant() {
       const id = target.getAttribute("data-id");
       const alt = target.getAttribute("alt");
       let state = alt === "icon-off" ? false : true;
+      console.log(id);
+      const imgElement = document.createElement("img");
+      imgElement.setAttribute("class", "icon-important");
+      imgElement.setAttribute("data-id", id);
+      const builder = target.parentElement;
+      if (alt === "icon-off") {
+        imgElement.setAttribute("src", "/images/important-on.svg");
+        imgElement.setAttribute("alt", "icon-on");
+        target.remove();
+        builder.appendChild(imgElement);
+      }
+      if (alt === "icon-on") {
+        imgElement.setAttribute("src", "/images/important-off.svg");
+        imgElement.setAttribute("alt", "icon-off");
+        target.remove();
+        builder.appendChild(imgElement);
+      }
       await updateTask(id, { important: !state });
-      console.log(STORE.task);
     }
   });
 }
 
+function changeStatePending() {
+  const container = document.querySelector(".container-tasks");
+
+  container.addEventListener("click", async ({ target }) => {
+    if (target.classList.contains("completed-pending")) {
+      const id = target.getAttribute("data-id");
+      const name = target.getAttribute("name");
+      let state = name === "pending" ? false : true;
+      await updateTask(id, { completed: !state });
+      console.log(STORE.task);
+    }
+  });
+}
 const HomePage = {
   toString() {
     return render.call(this);
@@ -175,6 +205,7 @@ const HomePage = {
     addNewTask.call(this);
     orders.call(this);
     changeStateImportant.call(this);
+    changeStatePending.call(this);
   },
 };
 
