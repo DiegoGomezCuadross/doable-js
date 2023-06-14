@@ -1,6 +1,7 @@
 import STORE from "../store.js";
 
 export function sortedByAbc() {
+  console.log(STORE.task);
   STORE.task.sort((a, b) => {
     const titleA = a.title.toLowerCase();
     const titleB = b.title.toLowerCase();
@@ -32,7 +33,11 @@ export function sortedByAbc() {
             });
           }
           return `<div class="task-container">
-                    <input type="checkbox" id="task1">
+                   ${
+                     !ele.completed
+                       ? `<input type="checkbox" class="completed-pending" name="pending" data-id="${ele.id}">`
+                       : `<input type="checkbox" class="completed-pending" name="pending" checked data-id="${ele.id}">`
+                   }
                     <label for="task1">
                         <span class="task-text">
                            <p class="container-p">${ele.title}</p> 

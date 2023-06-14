@@ -5,12 +5,24 @@ async function fetchListTasks() {
   this.task = tasks;
   orderByAbc();
 }
-function updateTaskFromStore(id, updateTask) {
+function updateTaskImportantFromStore(id, updateTask) {
   const newState = updateTask.important;
   const newArray = this.task.map((ele) => {
     if (ele.id == id) {
       ele.important = newState;
     }
+    return ele;
+  });
+  this.task = newArray;
+}
+
+function updateTaskCompletedFromStore(id, updateTask) {
+  const newState = updateTask.completed;
+  const newArray = this.task.map((ele) => {
+    if (ele.id == id) {
+      ele.completed = newState;
+    }
+    return ele;
   });
   this.task = newArray;
 }
@@ -18,7 +30,8 @@ const STORE = {
   user: null,
   task: [],
   fetchListTasks,
-  updateTaskFromStore,
+  updateTaskImportantFromStore,
+  updateTaskCompletedFromStore,
   addTask(addTaskFinal) {
     this.task.push(addTaskFinal);
     orderByAbc();

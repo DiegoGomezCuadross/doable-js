@@ -1,6 +1,8 @@
+import { changeStateImportant } from "../pages/homePage.js";
 import STORE from "../store.js";
 
 export function sortedByDueDate() {
+  console.log(STORE.task);
   const taskByOrderDate = STORE.task.sort((a, b) => {
     const dateA = new Date(a.due_date);
     const dateB = new Date(b.due_date);
@@ -34,7 +36,11 @@ export function sortedByDueDate() {
             day: "numeric",
           });
           return `<div class="task-container">
-                    <input type="checkbox" id="task1">
+                    ${
+                      !ele.completed
+                        ? `<input type="checkbox" class="completed-pending" name="pending" data-id="${ele.id}">`
+                        : `<input type="checkbox" class="completed-pending" name="pending" checked data-id="${ele.id}">`
+                    }
                     <label for="task1">
                         <span class="task-text">
                            <p class="container-p">${ele.title}</p> 
@@ -51,6 +57,7 @@ export function sortedByDueDate() {
                         }
                     </label>
                 </div>`;
+          changeStateImportant();
         })
         .join("")}
       `;

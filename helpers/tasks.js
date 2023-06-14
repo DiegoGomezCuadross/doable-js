@@ -23,8 +23,16 @@ export async function showTask(id) {
 }
 
 export async function updateTask(id, updateTask) {
+  console.log(updateTask);
   await apiFetch(`tasks/${id}`, { method: "PATCH", body: updateTask });
-  STORE.updateTaskFromStore(id, updateTask);
+  if (updateTask.important) {
+    console.log("ejecutando important");
+    STORE.updateTaskImportantFromStore(id, updateTask);
+  }
+  if (updateTask.completed) {
+    console.log("ejecutando completed");
+    STORE.updateTaskCompletedFromStore(id, updateTask);
+  }
 }
 // export async function updateContacts{id}{
 
